@@ -2,7 +2,7 @@
 Summary:	Dokuwiki Include Plugin
 Name:		dokuwiki-plugin-%{_plugin}
 Version:	20070822
-Release:	0.1
+Release:	0.2
 License:	GPL v2
 Group:		Applications/WWW
 Source0:	http://www.qwik.ch/media/include.tgz
@@ -25,8 +25,8 @@ page into the current one.
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_plugindir}
-cp -a . $RPM_BUILD_ROOT%{_tpldir}
-rm -f $RPM_BUILD_ROOT%{_tpldir}/{COPYING,README,VERSION}
+cp -a . $RPM_BUILD_ROOT%{_plugindir}
+rm -f $RPM_BUILD_ROOT%{_plugindir}/{COPYING,README,VERSION}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
