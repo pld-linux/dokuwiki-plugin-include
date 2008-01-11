@@ -1,5 +1,6 @@
 %define		_plugin		include
-Summary:	Dokuwiki Include Plugin
+Summary:	DokuWiki Include Plugin
+Summary(pl.UTF-8):	Wtyczka Include (dołączania) dla DokuWiki
 Name:		dokuwiki-plugin-%{_plugin}
 Version:	20070822
 Release:	0.3
@@ -19,6 +20,10 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %description
 This is a very simple yet handy plugin with which you can include
 another wiki page into the current one.
+
+%description -l pl.UTF-8
+To jest bardzo prosta, ale pomocna wtyczka, przy pomocy której można
+dołączyć inną stronę wiki do bieżącej.
 
 %prep
 %setup -q -n %{_plugin}
