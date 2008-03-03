@@ -3,12 +3,13 @@ Summary:	DokuWiki Include Plugin
 Summary(pl.UTF-8):	Wtyczka Include (dołączania) dla DokuWiki
 Name:		dokuwiki-plugin-%{_plugin}
 Version:	20070822
-Release:	0.3
+Release:	0.4
 License:	GPL v2
 Group:		Applications/WWW
 Source0:	http://www.qwik.ch/media/include.tgz
 # Source0-md5:	7487acd2765cdfd7eaf38b52e48508b6
 Source1:	dokuwiki-find-lang.sh
+Patch0:		http://gauret.free.fr/fichiers/dokuwiki/dokuwiki-include-odt.patch
 URL:		http://www.wikidesign.ch/en/plugin/include/start
 Requires:	dokuwiki >= 20061106
 BuildArch:	noarch
@@ -27,6 +28,7 @@ dołączyć inną stronę wiki do bieżącej.
 
 %prep
 %setup -q -n %{_plugin}
+%patch0 -p1
 
 %install
 rm -rf $RPM_BUILD_ROOT
