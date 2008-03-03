@@ -1,0 +1,69 @@
+diff --git a/helper.php b/helper.php
+index 0beb7ac..dd9af45 100644
+--- a/helper.php
++++ b/helper.php
+@@ -223,6 +223,38 @@ class helper_plugin_include extends DokuWiki_Plugin { // DokuWiki_Helper_Plugin
+     return $this->doc;   
+   }
+   
++  /**
++   * Builds the ODT to embed the page to include
++   */
++  function renderODT(&$renderer){
++    global $ID;
++    
++    if (!$this->page['id']) return ''; // page must be set first
++    if (!$this->page['exists'] && ($this->page['perm'] < AUTH_CREATE)) return '';
++    
++    // prepare variable
++    $this->renderer =& $renderer;
++     
++    // get instructions and render them on the fly
++    $this->ins = p_cached_instructions($this->page['file']);
++        
++    // show only a given section?
++    if ($this->page['section'] && $this->page['exists']) $this->_getSection();
++          
++    // convert relative links
++    $this->_convertInstructions();
++    
++    // render the included page
++    $backupID = $ID;               // store the current ID
++    $ID       = $this->page['id']; // change ID to the included page
++    // remove document_start and document_end to avoid zipping
++    $this->ins = array_slice($this->ins, 1, -1);
++    p_render('odt', $this->ins, $info);
++    $ID = $backupID;               // restore ID
++    // reset defaults
++    $this->helper_plugin_include();
++  }
++  
+ /* ---------- Private Methods ---------- */
+          
+   /** 
+diff --git a/syntax.php b/syntax.php
+index fb6548b..5d08253 100644
+--- a/syntax.php
++++ b/syntax.php
+@@ -100,6 +100,21 @@ class syntax_plugin_include extends DokuWiki_Syntax_Plugin {
+       
+       return true;
+        
++    } elseif ($mode == 'odt'){
++      if ($nocache) $renderer->info['cache'] = false;
++    
++      // current section level
++      $clevel = 0;
++      preg_match_all('|<text:h text:style-name="Heading_20_\d" text:outline-level="(\d)">|i', $renderer->doc, $matches, PREG_SET_ORDER);
++      $n = count($matches) - 1;
++      if ($n > -1) $clevel = $matches[$n][1];
++      $include->setLevel($clevel);
++      
++      // include the page now
++      $include->renderODT($renderer);
++      
++      return true;
++       
+     // for metadata renderer
+     } elseif ($mode == 'metadata'){
+       if (!$flg_macro) $renderer->meta['relation']['haspart'][$id] = $exists;
