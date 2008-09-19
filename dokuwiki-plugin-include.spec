@@ -9,7 +9,7 @@ Group:		Applications/WWW
 Source0:	http://www.chimeric.de/_src/plugin-include.tgz
 # Source0-md5:	61763a3e5fa742e3fd73938054d98b4a
 Source1:	dokuwiki-find-lang.sh
-URL:		http://www.wikidesign.ch/en/plugin/include/start
+URL:		http://demo.chimeric.de/plugin:include
 Requires:	dokuwiki >= 20080505
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
