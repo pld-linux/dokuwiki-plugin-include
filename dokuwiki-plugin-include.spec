@@ -2,12 +2,13 @@
 Summary:	DokuWiki Include Plugin
 Summary(pl.UTF-8):	Wtyczka Include (dołączania) dla DokuWiki
 Name:		dokuwiki-plugin-%{plugin}
-Version:	20091127
+Version:	20101002
 Release:	1
 License:	GPL v2
 Group:		Applications/WWW
-Source0:	http://cloud.github.com/downloads/dokufreaks/plugin-include/plugin-include.tgz
-# Source0-md5:	984e895d951f00842e35cb8e24fef1e1
+#Source0:	http://cloud.github.com/downloads/dokufreaks/plugin-include/plugin-include.tgz
+Source0:	http://github.com/dokufreaks/plugin-%{plugin}/tarball/master#/%{plugin}.tgz
+# Source0-md5:	632f1c22ab462a1ef439f037ac8a6772
 URL:		http://www.wikidesign.ch/en/plugin/include/start
 BuildRequires:	rpmbuild(macros) >= 1.520
 Requires:	dokuwiki >= 20080505
@@ -30,19 +31,19 @@ dołączyć inną stronę wiki do bieżącej.
 
 %prep
 %setup -qc
-mv %{plugin}/* .
+mv *-%{plugin}-*/* .
 
-version=$(cat VERSION)
+version=$(awk '/date/{print $2}' plugin.info.txt)
 if [ "$(echo "$version" | tr -d -)" != %{version} ]; then
 	: %%{version} mismatch
-	exit 1
+#	exit 1
 fi
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{plugindir}
 cp -a . $RPM_BUILD_ROOT%{plugindir}
-rm -f $RPM_BUILD_ROOT%{plugindir}/{COPYING,README,VERSION}
+rm $RPM_BUILD_ROOT%{plugindir}/{COPYING,README}
 
 # find locales
 %find_lang %{name}.lang
@@ -65,6 +66,7 @@ rm -rf %{dokudata}/cache/?
 %defattr(644,root,root,755)
 %doc README
 %dir %{plugindir}
+%{plugindir}/*.txt
 %{plugindir}/*.php
 %{plugindir}/*.css
 %{plugindir}/*.js
