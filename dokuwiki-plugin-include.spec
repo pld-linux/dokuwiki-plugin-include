@@ -2,14 +2,14 @@
 Summary:	DokuWiki Include Plugin
 Summary(pl.UTF-8):	Wtyczka Include (dołączania) dla DokuWiki
 Name:		dokuwiki-plugin-%{plugin}
-Version:	20101002
+Version:	20101127
 Release:	1
 License:	GPL v2
 Group:		Applications/WWW
 #Source0:	http://cloud.github.com/downloads/dokufreaks/plugin-include/plugin-include.tgz
 Source0:	http://github.com/dokufreaks/plugin-%{plugin}/tarball/master#/%{plugin}.tgz
-# Source0-md5:	632f1c22ab462a1ef439f037ac8a6772
-URL:		http://www.wikidesign.ch/en/plugin/include/start
+# Source0-md5:	e89e3777af953662d9001eb3d3bddf83
+URL:		http://www.dokuwiki.org/plugin:include
 BuildRequires:	rpmbuild(macros) >= 1.520
 Requires:	dokuwiki >= 20080505
 BuildArch:	noarch
@@ -43,7 +43,8 @@ fi
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{plugindir}
 cp -a . $RPM_BUILD_ROOT%{plugindir}
-rm $RPM_BUILD_ROOT%{plugindir}/{COPYING,README}
+%{__rm} $RPM_BUILD_ROOT%{plugindir}/{COPYING,README}
+%{__rm} -r $RPM_BUILD_ROOT%{plugindir}/_test
 
 # find locales
 %find_lang %{name}.lang
