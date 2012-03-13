@@ -2,13 +2,12 @@
 Summary:	DokuWiki Include Plugin
 Summary(pl.UTF-8):	Wtyczka Include (dołączania) dla DokuWiki
 Name:		dokuwiki-plugin-%{plugin}
-Version:	20101127
+Version:	20110821
 Release:	1
 License:	GPL v2
 Group:		Applications/WWW
-#Source0:	http://cloud.github.com/downloads/dokufreaks/plugin-include/plugin-include.tgz
-Source0:	http://github.com/dokufreaks/plugin-%{plugin}/tarball/master#/%{plugin}.tgz
-# Source0-md5:	e89e3777af953662d9001eb3d3bddf83
+Source0:	http://github.com/dokufreaks/plugin-%{plugin}/tarball/master#/%{plugin}-%{version}.tgz
+# Source0-md5:	a729d41cce862c75a95e3570287546bd
 URL:		http://www.dokuwiki.org/plugin:include
 BuildRequires:	rpmbuild(macros) >= 1.520
 Requires:	dokuwiki >= 20080505
@@ -36,7 +35,7 @@ mv *-%{plugin}-*/* .
 version=$(awk '/date/{print $2}' plugin.info.txt)
 if [ "$(echo "$version" | tr -d -)" != %{version} ]; then
 	: %%{version} mismatch
-#	exit 1
+	exit 1
 fi
 
 %install
@@ -58,8 +57,10 @@ if [ -f %{dokuconf}/local.php ]; then
 	touch %{dokuconf}/local.php
 fi
 
+%triggerpostun -- %{name} < 20110821
 # http://www.dokuwiki.org/plugin:include says:
-# It is recommended to delete all cache files in <dokuwiki>/data/cache directly after upgrading the plugin
+# It is recommended to delete all cache files in <dokuwiki>/data/cache directly
+# after upgrading the plugin from an old version (before 2011)
 # seems doku cache is one letter hex subdirs. nuke those
 rm -rf %{dokudata}/cache/?
 
