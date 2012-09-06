@@ -2,7 +2,7 @@
 Summary:	DokuWiki Include Plugin
 Summary(pl.UTF-8):	Wtyczka Include (dołączania) dla DokuWiki
 Name:		dokuwiki-plugin-%{plugin}
-Version:	20110902
+Version:	20120902
 Release:	1
 License:	GPL v2
 Group:		Applications/WWW
