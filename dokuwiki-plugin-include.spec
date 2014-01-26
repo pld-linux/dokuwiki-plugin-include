@@ -6,8 +6,8 @@ Version:	20120902
 Release:	1
 License:	GPL v2
 Group:		Applications/WWW
-Source0:	http://github.com/dokufreaks/plugin-%{plugin}/tarball/master#/%{plugin}-%{version}.tgz
-# Source0-md5:	3ff6adff1413be3be85041e291044a9d
+Source0:	http://github.com/dokufreaks/plugin-%{plugin}/tarball/master?/%{plugin}-%{version}.tgz
+# Source0-md5:	f69d9d0b64deac3db3cb550161db9aa6
 URL:		http://www.dokuwiki.org/plugin:include
 BuildRequires:	rpmbuild(macros) >= 1.520
 Requires:	dokuwiki >= 20080505
