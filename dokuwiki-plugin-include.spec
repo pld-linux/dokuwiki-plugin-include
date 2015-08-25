@@ -2,13 +2,13 @@
 Summary:	DokuWiki Include Plugin
 Summary(pl.UTF-8):	Wtyczka Include (dołączania) dla DokuWiki
 Name:		dokuwiki-plugin-%{plugin}
-Version:	20131125
+Version:	20150613
 Release:	1
 License:	GPL v2
 Group:		Applications/WWW
-Source0:	http://github.com/dokufreaks/plugin-%{plugin}/tarball/master?/%{plugin}-20120902.tgz
-# Source0-md5:	f69d9d0b64deac3db3cb550161db9aa6
-URL:		http://www.dokuwiki.org/plugin:include
+Source0:	https://github.com/dokufreaks/plugin-include/archive/master/%{plugin}-%{version}.tar.gz
+# Source0-md5:	83496db2a6fe1aef5f15aad444bff232
+URL:		https://www.dokuwiki.org/plugin:include
 BuildRequires:	rpmbuild(macros) >= 1.520
 Requires:	dokuwiki >= 20080505
 BuildArch:	noarch
