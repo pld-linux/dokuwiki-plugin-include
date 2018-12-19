@@ -1,13 +1,17 @@
+%define		subver	2018-11-29
+%define		ver		%(echo %{subver} | tr -d -)
 %define		plugin		include
+%define		php_min_version 5.3.0
+%include	/usr/lib/rpm/macros.php
 Summary:	DokuWiki Include Plugin
 Summary(pl.UTF-8):	Wtyczka Include (dołączania) dla DokuWiki
 Name:		dokuwiki-plugin-%{plugin}
-Version:	20150613
+Version:	%{ver}
 Release:	1
 License:	GPL v2
 Group:		Applications/WWW
-Source0:	https://github.com/dokufreaks/plugin-include/archive/master/%{plugin}-%{version}.tar.gz
-# Source0-md5:	83496db2a6fe1aef5f15aad444bff232
+Source0:	https://github.com/dokufreaks/plugin-include/archive/%{subver}/%{plugin}-%{subver}.tar.gz
+# Source0-md5:	91ba150278c8c6680c08af87cb8a1657
 URL:		https://www.dokuwiki.org/plugin:include
 BuildRequires:	rpmbuild(macros) >= 1.520
 Requires:	dokuwiki >= 20080505
@@ -30,10 +34,15 @@ dołączyć inną stronę wiki do bieżącej.
 
 %prep
 %setup -qc
-mv *-%{plugin}-*/* .
+mv *-%{plugin}-*/{.??*,*} .
 
+# nothing to do with tests
+rm -r _test
+rm .travis.yml
+
+%build
 version=$(awk '/date/{print $2}' plugin.info.txt)
-if [ "$(echo "$version" | tr -d -)" != %{version} ]; then
+if [ $(echo "$version" | tr -d -) != %{version} ]; then
 	: %%{version} mismatch
 	exit 1
 fi
@@ -43,7 +52,6 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{plugindir}
 cp -a . $RPM_BUILD_ROOT%{plugindir}
 %{__rm} $RPM_BUILD_ROOT%{plugindir}/{COPYING,README}
-%{__rm} -r $RPM_BUILD_ROOT%{plugindir}/_test
 
 # find locales
 %find_lang %{name}.lang
